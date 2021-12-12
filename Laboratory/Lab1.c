@@ -405,23 +405,35 @@ int main(void)
                     }
                 }
 
-                else 
+                else
                 {
                     printf("Você deseja andar quantos Kilometros ? ");
                     scanf("%d", &c1.kilometros);
 
-                    if(c1.kilometros <= 0){
+                    if (c1.kilometros <= 0)
+                    {
                         do
                         {
                             printf("Digite novamente a quantidade de kilometros que você deseja andar \n\nDigite aqui :");
-                            scanf("%d",&c1.kilometros);
+                            scanf("%d", &c1.kilometros);
                             __fpurge(stdin);
 
                         } while (c1.kilometros <= 0);
-                        
+
+                        printf("Digite qualquer tecla para continuar ....");
+                        getchar();
+
+                        andar(c1.adicionarCOmbustivel, c1.consumoDeCombustivel, c1.kilometros);
+                    }
+
+                    else
+                    {
+                        printf("Digite qualquer tecla para continuar ...");
+                        getchar();
+
+                        andar(c1.adicionarCOmbustivel, c1.consumoDeCombustivel, c1.kilometros);
                     }
                 }
-
             }
 
             if (select == 2)
@@ -429,42 +441,40 @@ int main(void)
                 printf("Obrigado por utilizar nossos serviços !!!\n\nSee you latter !!!!");
             }
         }
-
-        
     }
     return 0;
 }
 
-    void status(int quantidadeDeGasolina)
+void status(int quantidadeDeGasolina)
+{
+    printf("O seu carro tem %d Litros de gasolina !!!\n\n", quantidadeDeGasolina);
+}
+
+void andar(int adicionarCombustivel, int consumo, int kilometros)
+{
+
+    int a = adicionarGasolina(adicionarCombustivel) - (kilometros / consumo);
+
+    if (a < 0)
     {
-        printf("O seu carro tem %d Litros de gasolina !!!\n\n", quantidadeDeGasolina);
+        printf("\nErro !!\n\nVocê não pode andar esta distância , pois lhe falta gasolina !!!\n\n");
     }
-
-    void andar(int adicionarCombustivel, int consumo, int kilometros)
+    else if (a == 0)
     {
-
-        int a = adicionarGasolina(adicionarCombustivel) - (kilometros / consumo);
-
-        if (a < 0)
-        {
-            printf("\nErro !!\n\nVocê não pode andar esta distância , pois lhe falta gasolina !!!\n\n");
-        }
-        else if (a == 0)
-        {
-            printf("\nTrajeto possível ,mas no LIMITE !!!!\n\n");
-        }
-        else if (a > 0)
-        {
-            printf("\nO seu carro andou %d Km ,por conta disto sua quantidade de gasolina restante é igual há : %d Litros \n\n", kilometros, a);
-        }
+        printf("\nTrajeto possível ,mas no LIMITE !!!!\n\n");
     }
-
-    void obterGasolina()
+    else if (a > 0)
     {
+        printf("\nO seu carro andou %d Km ,por conta disto sua quantidade de gasolina restante é igual há : %d Litros \n\n", kilometros, a);
     }
+}
 
-    int adicionarGasolina(int adicionarCombustivel)
-    {
-        int quantidadeDeGasolina = adicionarCombustivel;
-        return quantidadeDeGasolina;
-    }
+void obterGasolina()
+{
+}
+
+int adicionarGasolina(int adicionarCombustivel)
+{
+    int quantidadeDeGasolina = adicionarCombustivel;
+    return quantidadeDeGasolina;
+}
